@@ -1,40 +1,39 @@
 
-import { useRef, useState } from 'react';
+import { useRef} from 'react';
 import './App.css'
+
+
 function App() {
 
- 
-
-  let h1ele = useRef(null)
-
-  let x= useRef(10)
-
-  const [y,setY]=useState(100);
+  let arr = new Array(10).fill(null);
   
+
+  let headings = useRef([])
+  
+  function changh1style(e){
+    for(let ele of headings.current){
+      ele.classList.remove('primary')
+    }
+    e.target.classList.add('primary') 
+  }
   return (
     <>
-    <h1 ref={h1ele} className='active'>Heading Ele</h1>
+   {
+    arr.map(
+      (ele,i)=>{
+        return(
+          <h1 
+          ref={(el)=> headings.current[i]=el}  onClick={(eve)=>{
+            changh1style(eve)
+          }}
 
-    
-<button onClick={()=>{
-  console.log(h1ele) 
-  console.dir(h1ele.current)
+          className='style'
+          >Heading {i +1}</h1>
+        )
 
-  h1ele.current.classList.toggle('active') 
-  h1ele.current.classList.toggle('inactive')
-}
-}> Click Me</button>
-
-<h1>x value: {x.current}</h1>
-
-<button onClick={()=>{
-
-  x.current = x.current+10
-  console.log(x.current)
-
-  setY (y+100)
-}}>Increment</button>
-
+      }
+    )
+   }
 </>
   
   );
